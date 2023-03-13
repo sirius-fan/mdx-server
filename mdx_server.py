@@ -50,7 +50,7 @@ try:
     base_path = os.path.dirname(sys.executable)
 except Exception:
     base_path = os.path.abspath(".")
-        
+
 resource_path = os.path.join(base_path, 'mdx')
 print("resouce path : " + resource_path)
 builder = None
@@ -81,17 +81,19 @@ def application(environ, start_response):
 
     if path_info in url_map:
         url_file = url_map[path_info]
-        content_type = content_type_map.get(file_util_get_ext(url_file), 'text/html; charset=utf-8')
+        content_type = content_type_map.get(
+            file_util_get_ext(url_file), 'text/html; charset=utf-8')
         start_response('200 OK', [('Content-Type', content_type)])
         return [file_util_read_byte(url_file)]
     elif file_util_get_ext(path_info) in content_type_map:
-        content_type = content_type_map.get(file_util_get_ext(path_info), 'text/html; charset=utf-8')
+        content_type = content_type_map.get(
+            file_util_get_ext(path_info), 'text/html; charset=utf-8')
         start_response('200 OK', [('Content-Type', content_type)])
         return get_definition_mdd(path_info, builder)
     else:
-        start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
+        start_response(
+            '200 OK', [('Content-Type', 'text/html; charset=utf-8')])
         return get_definition_mdx(path_info[1:], builder)
-
 
     start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8')])
     return [b'<h1>WSGIServer ok!</h1>']

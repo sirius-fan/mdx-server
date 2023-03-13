@@ -5,6 +5,7 @@ import sys
 import re
 from file_util import *
 
+
 def get_definition_mdx(word, builder):
     """根据关键字得到MDX词典的解释"""
     content = builder.mdx_lookup(word)
@@ -22,7 +23,7 @@ def get_definition_mdx(word, builder):
     str_content = ""
     if len(content) > 0:
         for c in content:
-            str_content += c.replace("\r\n","").replace("entry:/","")
+            str_content += c.replace("\r\n", "").replace("entry:/", "")
 
     injection = []
     injection_html = ''
@@ -34,7 +35,7 @@ def get_definition_mdx(word, builder):
         base_path = os.path.dirname(sys.executable)
     except Exception:
         base_path = os.path.abspath(".")
-            
+
     resource_path = os.path.join(base_path, 'mdx')
 
     file_util_get_files(resource_path, injection)
@@ -43,13 +44,14 @@ def get_definition_mdx(word, builder):
         if file_util_is_ext(p, 'html'):
             injection_html += file_util_read_text(p)
 
-    #return [bytes(str_content, encoding='utf-8')]
+    # return [bytes(str_content, encoding='utf-8')]
     output_html = str_content + injection_html
     return [output_html.encode('utf-8')]
 
+
 def get_definition_mdd(word, builder):
     """根据关键字得到MDX词典的媒体"""
-    word = word.replace("/","\\")
+    word = word.replace("/", "\\")
     content = builder.mdd_lookup(word)
     if len(content) > 0:
         return [content[0]]

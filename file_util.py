@@ -3,6 +3,7 @@
 import os
 import io
 
+
 def file_util_readlines_text(path):
     """读取文本文件返回各行list"""
     with io.open(path, 'r', -1, 'utf-8') as f:
@@ -63,7 +64,7 @@ def file_util_is_ext(path, ext):
 
 def file_util_get_files(root_dir, result_list):
     """得到指定路径所有文件"""
-    #print(root_dir)
+    # print(root_dir)
     if file_util_is_exists(root_dir):
         for lists in os.listdir(root_dir):
             path = os.path.join(root_dir, lists)
@@ -72,7 +73,8 @@ def file_util_get_files(root_dir, result_list):
             if os.path.isfile(path):
                 result_list.append(path)
     else:
-        print("path [ "+ root_dir +" ] does not exist")
+        print("path [ " + root_dir + " ] does not exist")
+
 
 def file_util_is_exists(path):
     """判断文件或目录是否存在"""
